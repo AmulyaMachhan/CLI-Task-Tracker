@@ -78,3 +78,21 @@ function listTasks(status){
         });
     }
 }
+
+//Function to add tasks to the tasks.json
+function addTask(description){
+    const tasks = readTasks();
+    const newTask = {
+        id : getNextID(tasks),
+        description,
+        completed : false,
+        inProgress : false
+    };
+    
+    tasks.push(newTask);
+    writeTasks(tasks);
+
+    console.log(
+        `${colors.green}Task added successfully! (ID: ${newTask.id})${colors.reset}`
+    );  
+}
