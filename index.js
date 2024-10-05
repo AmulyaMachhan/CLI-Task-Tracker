@@ -41,5 +41,40 @@ function getNextID(tasks){
 
 //Function to list all the tasks in tasks.json
 function listTasks(status){
-    cons
+    const tasks = readTasks();
+    let filteredTasks = tasks;
+
+    if(status){
+        if(status.toLowerCase() === "done"){
+            filteredTasks = tasks.filter(task => task.completed);
+        }else if(status.toLowerCase() === "in-progress"){
+            filteredTasks = tasks.filter(task => task.inProgress);
+        }else if(status.toLowerCase() === "to-do"){
+            filteredTasks = tasks.filter(task => !task.inProgress && !task.completed);
+        }else {
+            console.log(
+                `${colors.red}Invalid status. Use 'done', 'to-do', or 'in-progress'.${colors.reset}`
+              );
+            return;
+        }
+    }
+
+    if(filteredTasks.length === 0){
+        console.log(`${colors.yellow}No tasks found.${colors.reset}`);
+    }else{
+        console.log(
+            `${colors.cyan}Listing ${status ? status : "all"} tasks:${colors.reset}`
+        );
+        filteredTasks.forEach((task) => {
+            console.log(
+                `${task.id}. ${task.description} [${
+                task.completed
+                    ? colors.green + "Done"
+                    : task.inProgress
+                    ? colors.yellow + "In-progress"
+                    : colors.red + "To-do"
+                }${colors.reset}]`
+            );
+        });
+    }
 }
