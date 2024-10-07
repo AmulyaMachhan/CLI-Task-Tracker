@@ -96,3 +96,20 @@ function addTask(description){
         `${colors.green}Task added successfully! (ID: ${newTask.id})${colors.reset}`
     );  
 }
+
+//Function to update a given task with new description
+function updateTask(id, newDescription){
+    const tasks = readTasks();
+    const task = tasks.find(task => task.id === parseInt(id));
+
+    if(!task){
+        console.log(`${colors.red}Task with ID ${id} not found.${colors.reset}`);
+        return;
+    }
+
+    task.description = newDescription;
+    writeTasks(tasks);
+    console.log(
+        `${colors.green}Task ID ${id} updated successfully!${colors.reset}`
+    );
+}
