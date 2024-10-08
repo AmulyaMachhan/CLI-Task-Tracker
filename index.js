@@ -100,8 +100,8 @@ function addTask(description){
 //Function to update a given task with new description
 function updateTask(id, newDescription){
     const tasks = readTasks();
-    const task = tasks.find(task => task.id === parseInt(id));
 
+    const task = tasks.find(task => task.id === parseInt(id));
     if(!task){
         console.log(`${colors.red}Task with ID ${id} not found.${colors.reset}`);
         return;
@@ -112,4 +112,19 @@ function updateTask(id, newDescription){
     console.log(
         `${colors.green}Task ID ${id} updated successfully!${colors.reset}`
     );
+}
+
+//Function to delete a task with given ID
+function deleteTasks(id){
+    const tasks = readTasks();
+    const newTasks = tasks.filter(task => task.id !== parseInt(id));
+
+    if(newTasks.length < tasks.length){
+        writeTasks(newTasks);
+        console.log(
+            `${colors.green}Task ID ${id} deleted successfully!${colors.reset}`
+        );
+    } else {
+        console.log(`${colors.red}Task with ID ${id} not found.${colors.reset}`);
+    }
 }
