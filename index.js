@@ -128,3 +128,19 @@ function deleteTasks(id){
         console.log(`${colors.red}Task with ID ${id} not found.${colors.reset}`);
     }
 }
+
+function markInProgress(id){
+    const tasks = readTasks();
+    const task = tasks.find(task => task.id === parseInt(id));
+
+    if(!task){
+        console.log(`${colors.red}Task with ID ${id} not found.${colors.reset}`);
+        return;
+    }
+
+    task.inProgress = true;
+    writeTasks(tasks);
+    console.log(
+        `${colors.yellow}Task ID ${id} marked as in-progress.${colors.reset}`
+    );
+}
