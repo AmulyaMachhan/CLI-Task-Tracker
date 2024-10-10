@@ -129,6 +129,7 @@ function deleteTasks(id){
     }
 }
 
+//Function to mark a task in progress
 function markInProgress(id){
     const tasks = readTasks();
     const task = tasks.find(task => task.id === parseInt(id));
@@ -143,4 +144,22 @@ function markInProgress(id){
     console.log(
         `${colors.yellow}Task ID ${id} marked as in-progress.${colors.reset}`
     );
+}
+
+//Function to mark a task as done
+function markAsDone(id){
+    const tasks = readTasks();
+    const task = tasks.find(task => task.id === parseInt(id));
+
+    if(!task){
+        console.log(`${colors.red}Task with ID ${id} not found.${colors.reset}`);
+        return;
+    }
+
+    task.inProgress = false;
+    task.completed = true;
+    writeTasks(tasks);
+    console.log(
+        `${colors.yellow}Task ID ${id} marked as in-progress.${colors.reset}`
+    );   
 }
