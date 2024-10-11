@@ -140,6 +140,7 @@ function markInProgress(id){
     }
 
     task.inProgress = true;
+    task.completed = false;
     writeTasks(tasks);
     console.log(
         `${colors.yellow}Task ID ${id} marked as in-progress.${colors.reset}`
@@ -163,3 +164,9 @@ function markAsDone(id){
         `${colors.yellow}Task ID ${id} marked as in-progress.${colors.reset}`
     );   
 }
+
+// Helper function for showing errors
+const showError = (message, sample) => {
+    console.log(`${colors.red}${message}${colors.reset}`);
+    if (sample) console.log(`${colors.yellow}Sample: ${sample}${colors.reset}`);
+};
