@@ -182,3 +182,64 @@ const showHelp = () => {
     console.log(`${colors.yellow}  mark-in-progress <id>             - Mark a task as in-progress by ID${colors.reset}`);
     console.log(`${colors.yellow}  mark-done <id>                    - Mark a task as done by ID${colors.reset}`);
 };
+
+//Command line interface login
+const args = process.argv.slice(2);
+
+if(args[0] === "add"){
+    const taskDescription = args.slice(1).join(" ");
+    if(!taskDescription){
+        showError("Please provide a task description.", 'node index.js add "Drink Water"');
+        return;
+    }
+
+    addTask(taskDescription);
+}
+else if(args[0] === "list"){
+    const status = args[1]; // "done", "to-do", "in-progress" (optional)
+    listTasks(status);
+}
+else if(args[0] === "update"){
+    const id = args[1];
+    const newDescription = args.slice(1).join(" ");
+
+    if (!id || !newDescription) {
+        showError(
+            "Please provide a task ID and new description.",
+            'node index.js update 1 "Updated task description"'
+          );
+        return;
+    }
+
+    updateTask(id, newDescription);
+}
+else if(args[0] === "delete"){
+    const id = args[1];
+    if (!id) {
+        showError("Please provide a task ID.", "node index.js delete 1");
+        return;
+    }
+
+    deleteTasks(id);
+}
+else if(args[0] === "mark-in-progress"){
+    const id = args[1];
+    if (!id) {
+        showError("Please provide a task ID.", "node index.js mark-in-progress 1");
+        return;
+    } 
+
+    markInProgress(id);
+}
+else if(args[0] === "mark-done"){
+    const id = args[1];
+    if (!id) {
+        showError("Please provide a task ID.", "node index.js mark-in-progress 1");
+        return;
+    } 
+
+    markAsDone(id);
+}
+else{
+    showHelp();
+}
