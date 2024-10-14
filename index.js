@@ -12,16 +12,20 @@ const colors = {
     cyan: "\x1b[36m",
 };
 
-//Function to read tasks from tasks.json
-function readTasks(){
-    if(fs.existsSync(taskFilePath)){
-        const data = fs.readFileSync(taskFilePath, "utf8");
-        return JSON.parse(data)?.tasks;
+// Function to initialize tasks.json if it doesn't exist
+function initializeTaskFile() {
+    if (!fs.existsSync(taskFilePath)) {
+      fs.writeFileSync(taskFilePath, JSON.stringify({ tasks: [] }, null, 2), "utf8");
+      console.log(`${colors.green}Initialized tasks.json file.${colors.reset}`);
     }
-    return [];
+}
+  
+// Function to read tasks from tasks.json
+function readTasks() {
+    const data = fs.readFileSync(taskFilePath, "utf8");
+    return JSON.parse(data)?.tasks || [];
 }
 
-console.log(readTasks());
 //Function to write tasks in tasks.json
 function writeTasks(tasks){
     fs.writeFileSync(taskFilePath, JSON.stringify(tasks, null, 2), "utf8");
