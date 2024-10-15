@@ -23,7 +23,10 @@ function initializeTaskFile() {
 // Function to read tasks from tasks.json
 function readTasks() {
     const data = fs.readFileSync(taskFilePath, "utf8");
-    return JSON.parse(data)?.tasks || [];
+    if(!data){ 
+        return [];
+    }
+    return JSON.parse(data);
 }
 
 //Function to write tasks in tasks.json
@@ -86,9 +89,10 @@ function listTasks(status){
 //Function to add tasks to the tasks.json
 function addTask(description){
     const tasks = readTasks();
+    console.log(tasks);
     const newTask = {
         id : getNextID(tasks),
-        description,
+        description : description,
         completed : false,
         inProgress : false
     };
@@ -186,6 +190,9 @@ const showHelp = () => {
     console.log(`${colors.yellow}  mark-in-progress <id>             - Mark a task as in-progress by ID${colors.reset}`);
     console.log(`${colors.yellow}  mark-done <id>                    - Mark a task as done by ID${colors.reset}`);
 };
+
+//Initializing tasks.json
+initializeTaskFile();
 
 //Command line interface login
 const args = process.argv.slice(2);
