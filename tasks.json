@@ -1,13 +1,13 @@
 [
   {
-    "id": 1,
-    "description": "Added items to cart",
-    "completed": false,
+    "id": 2,
+    "description": "Buy Groceries",
+    "completed": true,
     "inProgress": false
   },
   {
-    "id": 2,
-    "description": "Buy Groceries",
+    "id": 1,
+    "description": "Create templates",
     "completed": false,
     "inProgress": false
   }
